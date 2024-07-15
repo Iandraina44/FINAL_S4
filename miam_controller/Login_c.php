@@ -39,4 +39,29 @@ class Login_c extends CI_Controller {
         } 
     }
 
+    public function loginformadmin() {
+        $this->load->view('loginadminpage');
+    }
+
+    public function process_login_admin() {
+        // Récupération des données du formulaire
+        $email= $this->input->post('email');
+        $mdp = $this->input->post('mdp');
+
+        // Vérification des informations de connexion
+        $result = $this->Login_m->login_admin($email, $mdp);
+
+        // Traitement du résultat
+        if ($result < 0) {
+            echo "nom d utilisateur ou mot de passe erone";
+            echo $result;
+            $this->load->view('loginadminpage');
+        } elseif ($result > 0 ) {
+            echo "login nety";
+            $this->load->view('loginadminpage');
+        } 
+    }
+
+    
+
 }
