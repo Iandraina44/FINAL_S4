@@ -40,12 +40,12 @@ class Login_c extends CI_Controller {
     }
 
     public function loginformadmin() {
-        $this->load->view('loginadminpage');
+        $this->load->view('loginadmin');
     }
 
     public function process_login_admin() {
         // Récupération des données du formulaire
-        $email= $this->input->post('email');
+        $email= $this->input->post('username');
         $mdp = $this->input->post('mdp');
 
         // Vérification des informations de connexion
@@ -55,10 +55,12 @@ class Login_c extends CI_Controller {
         if ($result < 0) {
             echo "nom d utilisateur ou mot de passe erone";
             echo $result;
-            $this->load->view('loginadminpage');
+            echo $email;
+            echo $mdp;
+            $this->load->view('loginadmin');
         } elseif ($result > 0 ) {
             echo "login nety";
-            $this->load->view('loginadminpage');
+            $this->load->view('loginadmin');
         } 
     }
 

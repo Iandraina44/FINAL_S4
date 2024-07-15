@@ -12,7 +12,7 @@ CREATE TABLE slots_garage (
 CREATE TABLE service_garage (
     idService INT AUTO_INCREMENT PRIMARY KEY,
     nom_service VARCHAR(256) NOT NULL,
-    duree DATETIME NOT NULL,
+    duree TIME NOT NULL,
     tarif DOUBLE NOT NULL
 );
 
@@ -47,8 +47,15 @@ CREATE TABLE reservations_garage (
 CREATE TABLE devis_gararge(
     id_devis INT AUTO_INCREMENT PRIMARY KEY,
     idReservation INT not null,
-    date_payement DATETIME not null,
+    date_payement DATETIME,
+    etat INT not null CHECK (statut BETWEEN 0 AND 1),
     FOREIGN KEY (idReservation) REFERENCES reservations_garage(idReservation)
+);
+
+CREATE TABLE login_admin(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(256) unique not null,
+    mdp VARCHAR(256) not null
 );
 
 
@@ -63,26 +70,33 @@ INSERT INTO type_voiture_garage (marque) VALUES ('légère');
 INSERT INTO type_voiture_garage (marque) VALUES ('4 * 4');
 INSERT INTO type_voiture_garage (marque) VALUES ('Utilitaire');
 
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation simple', '0000-00-00 01:00:00', 150000);
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation standard', '0000-00-00 02:00:00', 250000);
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation complexe', '0000-00-00 08:00:00', 800000);
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Entretien', '0000-00-00 02:30:00', 300000);
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation simple', '01:00:00', 150000);
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation standard', '02:00:00', 250000);
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation complexe', '08:00:00', 800000);
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Entretien', '02:30:00', 300000);
+
+INSERT INTO login_admin (username, email, mdp)
+VALUES ('admin', 'admin@gmail.com', SHA1('mdp'));
+
 
 
 SELECT * FROM clients_garage WHERE numero LIKE '1809tap' AND id_type_voiture = 1;
 
 CREATE VIEW vue_reservation_details AS
 SELECT
-    rg.idReservation,
+    rg.idReservation AS id,
     sg.nom_slots AS nom_slot,
     cg.numero AS numero_client,
     srg.nom_service AS nom_service,
+    srg.tarif AS tarif,
+    srg.duree AS duree,
     rg.date_debut,
     rg.date_fin
 FROM
     reservations_garage rg
     INNER JOIN slots_garage sg ON rg.id_slot = sg.idSlot
     INNER JOIN clients_garage cg ON rg.id_client = cg.id
-    INNER JOIN service_garage srg ON rg.id_service = srg.idService
-WHERE
-    rg.idReservation = 1;
+    INNER JOIN service_garage srg ON rg.id_service = srg.idService;
+
+INSERT INTO reservations_garage (date_debut, date_fin, id_slot, id_client, id_service)
+VALUES ('2024-07-1 09:00:00', '2024-07-1 10:00:00', 1, 1, 2);
