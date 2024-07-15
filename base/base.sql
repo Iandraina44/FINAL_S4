@@ -86,3 +86,29 @@ FROM
     INNER JOIN service_garage srg ON rg.id_service = srg.idService
 WHERE
     rg.idReservation = 1;
+
+
+
+
+SELECT id_slot FROM slots_garage WHERE id_slot NOT IN 
+(
+    SELECT id_slot FROM reservations_garage 
+    WHERE (date_debut <= ? AND date_fin > ?)
+    OR (date_debut <= (? + INTERVAL ? SECOND) AND date_debut >= (? + INTERVAL ? SECOND))
+    OR (date_debut >= ? AND date_fin < (? + INTERVAL ? SECOND)) 
+);
+
+
+
+SELECT idSlot 
+        FROM slots_garage 
+        WHERE idSlot NOT IN (
+            SELECT idSlot 
+            FROM reservations_garage 
+            WHERE 
+                (date_debut <= ? AND date_fin > ?) 
+                OR (date_debut <= DATE_ADD(?, INTERVAL TIME_TO_SEC(?) SECOND) 
+                    AND date_fin > DATE_ADD(?, INTERVAL TIME_TO_SEC(?) SECOND)) 
+                OR (date_debut >= ? 
+                    AND date_debut < DATE_ADD(?, INTERVAL TIME_TO_SEC(?) SECOND))
+);
