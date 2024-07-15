@@ -35,5 +35,32 @@ class Login_m extends CI_Model {
 
         return -1;
     }
+
+    public function login_admin($email, $mdp) {
+        $query1 = $this->db->query("SELECT * FROM login_admin WHERE username LIKE ?", array($email));
+        $nb = $query1->num_rows();
+        $query1->free_result();
+
+        if ($nb == 0) {
+            return -1;
+        }
+
+        $query2 = $this->db->query("SELECT * FROM login_admin WHERE username LIKE ? AND mdp = SHA1(?)", array($email, $mdp));
+        $n = $query2->num_rows();
+        $query2->free_result();
+
+        if ($n == 0) {
+            return -2;
+        }
+
+        elseif($nb >= 1){ 
+            $query3 = $this->db->query("SELECT * FROM login_admin WHERE username LIKE ? AND mdp = SHA1(?)", array($email, $mdp));
+            $row = $query3->result_array();
+            // var_dump($row);
+            return $row[0]['id'];
+        }
+
+        
+    }
 }
 ?>
