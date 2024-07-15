@@ -61,7 +61,7 @@
                      <ul>
                  
                         <div class="button_section">
-                        <a href="Welcome/loginadmin">Admin</a>
+                        <a href="">Retour</a>
                         <!-- <a href="about.html">About Us</a> -->
                      </div>
                       
@@ -78,38 +78,38 @@
             <div class="row">
                <div class="col-md-5">
                   <div class="full slider_cont_section">
-                     <h4>Bienvenue</h4>
-                     <p>Veuillez vous connecter en remplissant les champs</p>
+                     <h4>Bienvenue Admin</h4>
+                     <p>Veuillez vous inscrire en remplissant les champs
+
+                     </p>
            
                             <form action="" method="">
                                <div class="col-md-12">
                                 <div class="full field">
-                                  <input type="text" placeholder="Numero de la voiture" name="type" />
+                                  <input type="text" placeholder="Pseudo" name="username" />
                                 </div>
                               </div>
                               <div class="col-md-12">
                                 <div class="full field">
-                                    <select name=""  style="width: 100%;border: none;background: #e8e8e8;min-height: 52px;padding: 0 20px;font-size: 14px;font-weight: 400;margin: 10px 0;">
-                                        <option value="" disabled selected >Type de la voiture</option>
-                                        <option value="">v8</option>
-                                        <option value="">v8</option>
-
-                                    </select>
-                            
+                                  <input type="password" placeholder="Mot de passe" name="mdp" />
                                 </div>
                               </div>
-                             
-                               
+                
                              
                               <div class="col-md-12">
-                                <div class="full center">
-                                  <button class="submit_bt">Se Connecter</button>
+                          
+                                <div class="full center" >
+                                  <button class="submit_bt">S'inscrire</button>
                                 </div>
                               
                               </div>
                   
                 
                             </form>
+                            
+                            <div style="margin-top:230px;">
+                            <p  style="color: #f36b2a;font-size:15px;">A deja un compte? <strong>  <a href="#"  style="color: #f36b2a;font-size:20px"">Se connecter</a> </strong>   </p>
+                            </div>
                         </div>
                      <!-- </div> -->
                   <!-- </div> -->
