@@ -44,11 +44,11 @@ CREATE TABLE reservations_garage (
 );
 
 
-CREATE TABLE devis_gararge(
+CREATE TABLE devis_garage(
     id_devis INT AUTO_INCREMENT PRIMARY KEY,
     idReservation INT not null,
     date_payement DATETIME,
-    etat INT not null CHECK (statut BETWEEN 0 AND 1),
+    etat INT not null CHECK (etat BETWEEN 0 AND 1),
     FOREIGN KEY (idReservation) REFERENCES reservations_garage(idReservation)
 );
 
