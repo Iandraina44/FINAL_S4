@@ -16,6 +16,8 @@
       <link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.min.css")?>">
       <!-- style css -->
       <link rel="stylesheet" href="<?php echo base_url("assets/css/style2.css")?>">
+      <link rel="stylesheet" href="<?php echo base_url("assets/css/style3.css")?>">
+
       <!-- Responsive-->
       <link rel="stylesheet" href="<?php echo base_url("assets/css/responsive.css")?>">
       <!-- fevicon -->
@@ -28,6 +30,7 @@
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+      
    </head>
    <!-- body -->
    <body class="main-layout">
@@ -52,10 +55,10 @@
                     <a href="#about">Nos services</a>
                 </li>
                 <li>
-                    <a href="#why_choose_us">why Choose Us</a>
+                    <a href="#why_choose_us">Liste des devis</a>
                 </li>
                 <li>
-                    <a href="#testimonial">Testimonial</a>
+                    <a href="#testimonial">Insertion Calendrier</a>
                 </li>
                 <li>
                     <a href="#contact">Contact</a>
@@ -112,9 +115,6 @@
      
      
      <!-- CONTAINT -->
-  <!-- section -->
- 
-
  
  <!-- END CONTAINT -->
       <!-- footer -->
