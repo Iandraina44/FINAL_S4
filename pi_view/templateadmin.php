@@ -26,6 +26,19 @@
       <link rel="stylesheet" href=<?php echo base_url("assets/css/jquery.mCustomScrollbar.min.css")?>">
       <!-- awesome fontfamily -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/fr.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <style>
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
       <!-- Tweaks for older IEs-->
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -61,7 +74,7 @@
                     <a href="#testimonial">Insertion Calendrier</a>
                 </li>
                 <li>
-                    <a href="#contact">Contact</a>
+                    <a href="#contact">Liste des rendez-vous</a>
                 </li>
             </ul>
 
@@ -115,7 +128,7 @@
      
      
      <!-- CONTAINT -->
-    
+     
  <!-- END CONTAINT -->
       <!-- footer -->
       <footer>
