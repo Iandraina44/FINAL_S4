@@ -18,8 +18,11 @@ class Utilisation_slot_c extends CI_Controller {
         $data['A'] = $this->Utilisation_slot_m->get_utilisation_by_slot_and_date("A", $date_debut);
         $data['B'] = $this->Utilisation_slot_m->get_utilisation_by_slot_and_date("B", $date_debut);
         $data['C'] = $this->Utilisation_slot_m->get_utilisation_by_slot_and_date("C", $date_debut);
-        $data['pagename']="affichageslot";
-        $this->load->view('templateAdmin', $data);
+        
+        $response = json_encode($data);
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output($response);
     }
 
 }
