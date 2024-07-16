@@ -54,13 +54,10 @@ class Login_c extends CI_Controller {
         // Traitement du résultat
         if ($result < 0) {
             echo "nom d utilisateur ou mot de passe erone";
-            echo $result;
-            echo $email;
-            echo $mdp;
             $this->load->view('loginadmin');
         } elseif ($result > 0 ) {
-            echo "login nety";
-            $this->load->view('loginadmin');
+            $this->load->view('homeAdim');
+            $this->load->view('templateAdim');
         } 
     }
 
