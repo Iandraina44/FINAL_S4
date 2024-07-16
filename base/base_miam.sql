@@ -100,26 +100,17 @@ FROM
     INNER JOIN service_garage srg ON rg.id_service = srg.idService;
 
 
-CREATE OR REPLACE VIEW vue_utilisation_slot AS
-SELECT 
-    slots_garage.nom_slots, 
-    reservations_garage.date_debut, 
-    reservations_garage.date_fin
-FROM 
-    reservations_garage
-JOIN 
-    slots_garage ON reservations_garage.id_slot = slots_garage.idSlot;
-
-
-CREATE OR REPLACE VIEW vue_utilisation_slot AS
-SELECT 
-    slots_garage.nom_slots, 
-    TIME(reservations_garage.date_debut) AS heure_debut, 
-    TIME(reservations_garage.date_fin) AS heure_fin
-FROM 
-    reservations_garage
-JOIN 
-    slots_garage ON reservations_garage.id_slot = slots_garage.idSlot;
+CREATE or replace VIEW vue_utilisation_slot AS
+ SELECT
+     slots_garage.nom_slots,
+     reservations_garage.date_debut,
+     reservations_garage.date_fin,
+     TIME(reservations_garage.date_debut) AS heure_debut,
+     TIME(reservations_garage.date_fin) AS heure_fin
+ FROM
+     reservations_garage
+ JOIN
+     slots_garage ON reservations_garage.id_slot = slots_garage.idSlot;
 
 
 
