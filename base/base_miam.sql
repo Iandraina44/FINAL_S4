@@ -16,7 +16,6 @@ CREATE TABLE service_garage (
     tarif DOUBLE NOT NULL
 );
 
-
 -- Création de la table type_voiture_garage
 CREATE TABLE type_voiture_garage (
     id_type_voiture INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,12 +38,11 @@ CREATE TABLE reservations_garage (
     id_slot INT NOT NULL,
     id_client INT NOT NULL,
     id_service INT NOT NULL,
-    montant double not null,
+    montant double NOT NULL,
     FOREIGN KEY (id_slot) REFERENCES slots_garage(idSlot),
     FOREIGN KEY (id_client) REFERENCES clients_garage(id),
     FOREIGN KEY (id_service) REFERENCES service_garage(idService)
 );
-
 
 CREATE TABLE devis_garage(
     id_devis INT AUTO_INCREMENT PRIMARY KEY,
@@ -54,52 +52,13 @@ CREATE TABLE devis_garage(
     FOREIGN KEY (idReservation) REFERENCES reservations_garage(idReservation)
 );
 
+
 CREATE TABLE login_admin(
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(256) unique not null,
     mdp VARCHAR(256) not null
 );
 
-
-CREATE TABLE temp_service_garage(
-    id int PRIMARY key AUTO_INCREMENT,
-    service_nom VARCHAR(256) Not Null,
-    durree TIME NOT NULL
-);
-
-
-
-CREATE TABLE temp_table_garage(
-    id int PRIMARY key AUTO_INCREMENT,
-    voiture varchar(256) not null,
-    type_voiture varchar(256) not null,
-    date_heurerdv DATETIME not null,
-    type_service varchar(256) not null,
-    montant double not null,
-    date_payement DATETIME
-);
-
-
-
-CREATE VIEW reservation_devis_view AS
-SELECT 
-    d.id_devis AS id_devis,
-    c.numero AS numero_client,
-    s.nom_service AS nom_service,
-    r.date_debut AS date_debut,
-    sl.nom_slots AS nom_slot,
-    d.date_payement AS date_payement,
-    d.etat AS etat
-FROM 
-    devis_garage d
-JOIN 
-    reservations_garage r ON d.idReservation = r.idReservation
-JOIN 
-    clients_garage c ON r.id_client = c.id
-JOIN 
-    service_garage s ON r.id_service = s.idService
-JOIN 
-    slots_garage sl ON r.id_slot = sl.idSlot;
 
 
 
@@ -108,12 +67,21 @@ INSERT INTO slots_garage (nom_slots, statut) VALUES ('A', 1);
 INSERT INTO slots_garage (nom_slots, statut) VALUES ('B', 0);
 INSERT INTO slots_garage (nom_slots, statut) VALUES ('C', 1);
 
+INSERT INTO type_voiture_garage (marque) VALUES ('légère');
+INSERT INTO type_voiture_garage (marque) VALUES ('4 * 4');
+INSERT INTO type_voiture_garage (marque) VALUES ('Utilitaire');
 
-INSERT INTO login_admin (username, mdp)
-VALUES ('admin', SHA1('mdp'));
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation simple', '01:00:00', 150000);
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation standard', '02:00:00', 250000);
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation complexe', '08:00:00', 800000);
+INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Entretien', '02:30:00', 300000);
+
+INSERT INTO login_admin (username, email, mdp)
+VALUES ('admin', 'admin@gmail.com', SHA1('mdp'));
 
 
 
+SELECT * FROM clients_garage WHERE numero LIKE '1809tap' AND id_type_voiture = 1;
 
 CREATE VIEW vue_reservation_details AS
 SELECT
@@ -132,14 +100,65 @@ FROM
     INNER JOIN service_garage srg ON rg.id_service = srg.idService;
 
 
+CREATE or replace VIEW vue_utilisation_slot AS
+ SELECT
+     slots_garage.nom_slots,
+     reservations_garage.date_debut,
+     reservations_garage.date_fin,
+     TIME(reservations_garage.date_debut) AS heure_debut,
+     TIME(reservations_garage.date_fin) AS heure_fin
+ FROM
+     reservations_garage
+ JOIN
+     slots_garage ON reservations_garage.id_slot = slots_garage.idSlot;
 
 
 
-INSERT INTO type_voiture_garage (marque) VALUES ('légère');
-INSERT INTO type_voiture_garage (marque) VALUES ('4 * 4');
-INSERT INTO type_voiture_garage (marque) VALUES ('Utilitaire');
 
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation simple', '01:00:00', 150000);
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation standard', '02:00:00', 250000);
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Réparation complexe', '08:00:00', 800000);
-INSERT INTO service_garage (nom_service, duree, tarif) VALUES ('Entretien', '02:30:00', 300000);
+//chiffre d affaire total
+CREATE VIEW chiffre_affaire_total AS 
+SELECT
+    rg.idReservation,
+    SUM(rg.montant) AS montant_total
+FROM
+    reservations_garage rg
+GROUP BY
+    rg.idReservation;
+
+select sum(montant_total) AS Chiffre_affaire  from chiffre_affaire_total;
+
+
+//non paye 
+CREATE VIEW non_paye AS 
+SELECT
+    rg.idReservation,
+    SUM(rg.montant) AS non_payes
+FROM
+    devis_garage dg
+INNER JOIN
+    reservations_garage rg ON dg.idReservation = rg.idReservation
+WHERE
+    dg.date_payement IS NULL
+GROUP BY
+    rg.idReservation;
+
+select sum(non_payes) AS Chiffre_affaire  from non_paye;
+
+
+//chiffre d affaire par type de voiture 
+CREATE OR REPLACE VIEW chiffre_affaire_voiture AS 
+SELECT
+    tv.id_type_voiture,
+    tv.marque,
+    SUM(rg.montant) AS total_tarif_services,
+    COUNT(*) AS nombre_de_fois
+FROM
+    reservations_garage rg
+INNER JOIN
+    clients_garage cg ON rg.id_client = cg.id
+INNER JOIN
+    type_voiture_garage tv ON cg.id_type_voiture = tv.id_type_voiture
+GROUP BY
+    tv.marque;
+
+select * from chiffre_affaire_voiture;
