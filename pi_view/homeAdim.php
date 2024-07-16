@@ -8,6 +8,10 @@
                      <h4>Bienvenue</h4>
                      <h3 style="color:black">GULF</h3>
                      <p style="color:black">Votre garage avec multiple services, vous etes en BackOffice</p>
+                     <div class="button_section">
+                        <a href="#" style="width:400px">Supprimer les donnees de la base</a>
+                      
+                     </div>
                     
                   </div>
                </div>
@@ -18,6 +22,7 @@
                <div class="full margin_top_50_rs">
                   <img class="img-responsive"  src="<?php echo base_url("assets/images/home2.jpg")?>" alt="#" />
                </div>
+               
             </div>
 
                </div>
