@@ -26,7 +26,12 @@
       <link rel="stylesheet" href=<?php echo base_url("assets/css/jquery.mCustomScrollbar.min.css")?>">
       <!-- awesome fontfamily -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+      <!-- Tweaks for older IEs-->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/fr.js'></script>
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
@@ -39,10 +44,6 @@
             margin: 0 auto;
         }
     </style>
-      <!-- Tweaks for older IEs-->
-      <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
       
    </head>
    <!-- body -->
@@ -73,9 +74,7 @@
                 <li>
                     <a href="#testimonial">Insertion Calendrier</a>
                 </li>
-                <li>
-                    <a href="#contact">Liste des rendez-vous</a>
-                </li>
+              
             </ul>
 
         </nav>
@@ -128,7 +127,8 @@
      
      
      <!-- CONTAINT -->
-     
+    
+      
  <!-- END CONTAINT -->
       <!-- footer -->
       <footer>
