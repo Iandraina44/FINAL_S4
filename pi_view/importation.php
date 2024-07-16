@@ -17,6 +17,16 @@
                     </div>
                     </div>
                     <div class="col-md-12">
+                
+                    <div class="full center" >
+                        <button class="submit_bt" type= "submit">Importer</button>
+                    </div>
+                  
+                    
+                    </div>
+                    </form>
+                    <form action="" method="">
+                    <div class="col-md-12">
                     <div class="full field">
                     <label for="fileInput" class="file-label" id="fileLabel">Travaux</label>
                      <input type="file" style="padding-top: 10px;" placeholder="Travaux" name="travaux" />
